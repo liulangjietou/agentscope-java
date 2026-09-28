@@ -156,6 +156,7 @@ final class ReflectiveFunctionTool extends ToolBase {
         return strict;
     }
 
+    // 调用入口
     @Override
     public Mono<ToolResultBlock> callAsync(ToolCallParam param) {
         if (isExternalTool()) {

@@ -17,6 +17,7 @@ package io.agentscope.core.message;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
+//  —— 权限引擎评估后打在上下文里的工具调用块上；
 public enum ToolCallState {
     PENDING("pending"),
 

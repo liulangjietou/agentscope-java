@@ -56,6 +56,8 @@ import java.util.UUID;
     "tasks_context",
     "plan_mode_context"
 })
+
+// 子状态（权限/工具分组/任务/Plan Mode）都随 `AgentState` 一起序列化，**所以"用户勾选过的权限规则""模型自己开关过的工具组"都能跨调用、跨进程恢复**
 public final class AgentState implements State {
 
     private final String sessionId;
@@ -65,9 +67,13 @@ public final class AgentState implements State {
     private String replyId;
     private int curIter;
     private boolean shutdownInterrupted;
+    // 权限与规则 可持久化
     private PermissionContextState permissionContext;
+    // 激活的工具分组
     private final ToolContextState toolContext;
+    // TODO 任务清单
     private final TaskContextState tasksContext;
+    // plan mode状态
     private final PlanModeContextState planModeContext;
 
     /**
@@ -76,6 +82,7 @@ public final class AgentState implements State {
      * signals exactly one session's in-flight call. Lazily created and {@code transient} so it is
      * not part of {@code equals}/{@code hashCode} or JSON.
      */
+    // 中断信号只存在于内存、只作用于目标会话，不随状态持久化
     private transient volatile InterruptControl interruptControl;
 
     private AgentState(Builder builder) {

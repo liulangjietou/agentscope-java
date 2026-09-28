@@ -614,6 +614,7 @@ public class ReActAgent extends AgentBase implements AutoCloseable {
      *
      * <p>Safe to call from {@code beforeAgentExecution} only — caller must hold the
      * {@code AgentBase.acquireExecution} lock.
+     * 配置了 stateStore 时每次调用都重新从 store 读，不信任本地缓存**。
      */
     private CallExecution activateSlotForContext(RuntimeContext ctx) {
         String sid = ctx != null ? ctx.getSessionId() : null;
@@ -685,7 +686,7 @@ public class ReActAgent extends AgentBase implements AutoCloseable {
     }
 
     // ==================== RuntimeContext ====================
-
+     // 同会话串行闸门
     @Override
     protected Object callSerializationKey(RuntimeContext rc) {
         // Serialize calls per (userId, sessionId) slot: same-session calls share cached AgentState
@@ -5105,6 +5106,7 @@ public class ReActAgent extends AgentBase implements AutoCloseable {
          *
          * @return A new ReActAgent instance
          * @throws IllegalArgumentException if required parameters are missing or invalid
+         * ReActAgent.Builder#build` 会对传入的 Toolkit 做深拷贝（`Toolkit#copy`），保证实例间隔离
          */
         public ReActAgent build() {
             // Deep copy toolkit to avoid state interference between agents

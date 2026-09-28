@@ -58,6 +58,8 @@ import java.util.Set;
  * Set<String> mySessions = store.listSessionIds("alice");
  * }</pre>
  */
+// 可插拔持久化  跨持久化调用 会话上下文、权限、工具分组、任务等
+    // 框架加载或者创建、会话记忆与可恢复状态
 public interface AgentStateStore {
 
     /**
@@ -75,6 +77,7 @@ public interface AgentStateStore {
      * @param sessionId session identifier; must be non-null and non-blank
      * @param key the state key (e.g., {@code "agent_state"}, {@code "toolkit_activeGroups"})
      * @param value the state value to save
+     *              三元寻址
      */
     void save(String userId, String sessionId, String key, State value);
 

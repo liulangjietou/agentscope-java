@@ -33,6 +33,7 @@ package io.agentscope.core.message;
  * }
  * }</pre>
  */
+// 读 ReAct 循环的最佳线索  六个枚举值 六个出口
 public enum GenerateReason {
 
     /** Model stopped normally, task completed. */
@@ -44,13 +45,13 @@ public enum GenerateReason {
     /** Structured output completed. */
     STRUCTURED_OUTPUT,
 
-    /** Tool execution was suspended, waiting for user to provide results. */
+    /** Tool execution was suspended, waiting for user to provide results. 有 externalTool 挂起，等外部执行结果 */
     TOOL_SUSPENDED,
 
-    /** Reasoning phase was stopped by a Hook (PostReasoningEvent.stopAgent()). */
+    /** Reasoning phase was stopped by a Hook (PostReasoningEvent.stopAgent()). Hook 在推理后调用了 `stopAgent()` */
     REASONING_STOP_REQUESTED,
 
-    /** Acting phase was stopped by a Hook (PostActingEvent.stopAgent()). */
+    /** Acting phase was stopped by a Hook (PostActingEvent.stopAgent()). Hook 在行动后调用了 `stopAgent()` */
     ACTING_STOP_REQUESTED,
 
     /**
@@ -81,6 +82,6 @@ public enum GenerateReason {
     /** Agent was interrupted. */
     INTERRUPTED,
 
-    /** Maximum iterations reached. */
+    /** Maximum iterations reached.  达到 maxIters，走 `summarizing()` 总结收尾  */
     MAX_ITERATIONS
 }

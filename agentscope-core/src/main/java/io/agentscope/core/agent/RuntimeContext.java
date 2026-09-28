@@ -29,6 +29,8 @@ import java.util.concurrent.ConcurrentMap;
  *
  * <p>Attributes are not persisted. Hooks and tools may read and update the same instance for the
  * duration of a single {@code call}.
+ * 单次调用、调用方每次传入、多租户身份、给工具注入业务上下文、middleware 间传递每轮临时数据
+ * 一个 Agent 实例 + 不同 RuntimeContext = 并发服务多会话
  */
 public class RuntimeContext {
 

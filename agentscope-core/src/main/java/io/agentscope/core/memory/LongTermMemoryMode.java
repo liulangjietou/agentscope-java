@@ -55,11 +55,13 @@ public enum LongTermMemoryMode {
 
     /**
      * Agent actively controls memory through tool calls.
+     * agent 通过工具自助读写
      */
     AGENT_CONTROL,
 
     /**
      * Framework automatically manages memory without agent involvement.
+     * 框架自动注入检索结果
      */
     STATIC_CONTROL,
 

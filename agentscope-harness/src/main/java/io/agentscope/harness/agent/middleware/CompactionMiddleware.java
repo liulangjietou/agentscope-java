@@ -53,6 +53,8 @@ import reactor.core.publisher.Flux;
  * effective trigger threshold is computed as {@code model.getContextWindowSize() - reserved}.
  * If the model does not report its context window, falls back to
  * {@link CompactionConfig#FALLBACK_TRIGGER_TOKENS}.
+ *
+ * 对话摘要压缩：上下文太”深”——消息条数 / token 累计太多
  */
 public class CompactionMiddleware implements HarnessRuntimeMiddleware {
 

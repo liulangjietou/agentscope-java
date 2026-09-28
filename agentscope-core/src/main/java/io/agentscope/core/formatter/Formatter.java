@@ -59,6 +59,7 @@ public interface Formatter<TReq, TResp, TParams> {
      *
      * @param msgs List of AgentScope messages
      * @return List of provider-specific request messages
+     * AgentScope 消息 → 厂商请求消息
      */
     List<TReq> format(List<Msg> msgs);
 
@@ -68,6 +69,7 @@ public interface Formatter<TReq, TResp, TParams> {
      * @param response Provider-specific response object
      * @param startTime Request start time for calculating duration
      * @return AgentScope ChatResponse
+     * 厂商响应 → AgentScope
      */
     ChatResponse parseResponse(TResp response, Instant startTime);
 
@@ -77,6 +79,7 @@ public interface Formatter<TReq, TResp, TParams> {
      * @param paramsBuilder Provider-specific request parameters builder
      * @param options Generation options to apply
      * @param defaultOptions Default options to use if options parameter is null
+     *                       选项与工具的协议映射
      */
     void applyOptions(
             TParams paramsBuilder, GenerateOptions options, GenerateOptions defaultOptions);

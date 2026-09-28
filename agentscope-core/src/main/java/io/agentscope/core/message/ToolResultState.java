@@ -17,6 +17,7 @@ package io.agentscope.core.message;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
+//  —— 拒绝、错误、挂起等结果状态。
 public enum ToolResultState {
     SUCCESS("success"),
 

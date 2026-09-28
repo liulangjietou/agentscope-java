@@ -73,6 +73,7 @@ public abstract class ChatModelBase implements Model {
      * @param tools Optional list of tool schemas (null or empty if no tools)
      * @param options Optional generation options (null to use defaults)
      * @return Flux stream of chat responses
+     * 这里用的是经典的模板方法模式（Template Method Pattern），final 的目的是锁死调用骨架，把可变部分留给子类。
      */
     @Override
     public final Flux<ChatResponse> stream(

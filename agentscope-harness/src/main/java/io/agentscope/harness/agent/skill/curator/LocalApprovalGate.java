@@ -39,7 +39,7 @@ public class LocalApprovalGate implements SkillPromotionGate {
 
     private static final Logger log = LoggerFactory.getLogger(LocalApprovalGate.class);
 
-    @FunctionalInterface
+    unctionalInterface
     public interface Prompter
             extends Function<SkillCandidate, CompletableFuture<PromotionDecision>> {}
 

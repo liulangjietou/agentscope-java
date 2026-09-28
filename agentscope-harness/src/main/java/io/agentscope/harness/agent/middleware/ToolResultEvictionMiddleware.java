@@ -61,6 +61,7 @@ import reactor.core.publisher.Flux;
  *
  * <p>Tools listed in {@link ToolResultEvictionConfig#getExcludedToolNames()} are never evicted
  * (e.g. {@code readFile} — evicting would cause re-read loops).
+ * 大工具结果卸载 上下文太 ”宽”——单条工具结果体量过大
  */
 public class ToolResultEvictionMiddleware implements HarnessRuntimeMiddleware {
 
@@ -76,6 +77,15 @@ public class ToolResultEvictionMiddleware implements HarnessRuntimeMiddleware {
         this.config = config;
     }
 
+    /**
+     * onReasoning 在每次推理前扫描上下文，把超过字符阈值的工具结果写入文件系统并在原位置替换为"路径 + 头尾预览"的占位符——先处理 agent 的持久化状态、再处理当前推理视图，
+     * 通过指纹缓存去重、通过元数据标记防止重复驱逐，整个过程失败只降级不中断。
+     * @param agent the agent instance
+     * @param ctx   per-call runtime context (session, user, attributes)
+     * @param input reasoning input (messages, tools, options)
+     * @param next  calls the next middleware or the core reasoning logic
+     * @return
+     */
     @Override
     public Flux<AgentEvent> onReasoning(
             Agent agent,

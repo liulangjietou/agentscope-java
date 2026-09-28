@@ -67,14 +67,20 @@ public class Toolkit {
 
     private static final Logger logger = LoggerFactory.getLogger(Toolkit.class);
 
+    // 工具分组 CRUD + 激活态
     private final ToolGroupManager groupManager = new ToolGroupManager();
+    // AgentTool 注册表
     private final ToolRegistry toolRegistry = new ToolRegistry();
+    // 按激活分组过滤生成
     private final ToolSchemaProvider schemaProvider;
+    // 生成元工具
     private final MetaToolFactory metaToolFactory;
+    // MCP 客户端生命周期 + 其工具注册
     private final McpClientManager mcpClientManager;
     private final ToolSchemaGenerator schemaGenerator = new ToolSchemaGenerator();
     private final ToolMethodInvoker methodInvoker;
     private final ToolkitConfig config;
+    // ToolExecutor（包私有）
     private final ToolExecutor executor;
 
     /**
@@ -507,6 +513,7 @@ public class Toolkit {
      * @param agent The agent making the calls (may be null)
      * @param agentRuntimeContext The agent-level runtime context (may be null)
      * @return Mono containing list of tool responses
+     * 工具怎么注册、Schema 怎么生成、执行链路长什么样
      */
     public Mono<List<ToolResultBlock>> callTools(
             List<ToolUseBlock> toolCalls,
